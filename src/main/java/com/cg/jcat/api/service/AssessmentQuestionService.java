@@ -9,8 +9,8 @@ import com.cg.jcat.api.dao.AssessmentQuestionDao;
 import com.cg.jcat.api.dao.AssessmentQuestionModel;
 
 @Component
-public class AssessmentQuestionService implements IAssessmentQuestionService {
-
+public class AssessmentQuestionService implements IAssessmentQuestionService{
+	
 	@Autowired
 	AssessmentQuestionDao assessmentQuestionDao;
 
@@ -22,7 +22,7 @@ public class AssessmentQuestionService implements IAssessmentQuestionService {
 	@Override
 	public boolean saveQuestions(AssessmentQuestionModel assessmentQuestionsModel) {
 		return assessmentQuestionDao.saveQuestions(assessmentQuestionsModel);
-	}
+	}	
 
 	@Override
 	public boolean deleteQuestion(int questionId) {

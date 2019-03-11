@@ -7,6 +7,7 @@ import static org.junit.Assert.assertNotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -23,6 +24,8 @@ import com.cg.jcat.api.exception.CountMissMatchException;
 import com.cg.jcat.api.exception.OptionTextNotNullException;
 import com.cg.jcat.api.exception.SystemExceptions;
 
+import javassist.expr.NewArray;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestPropertySource(locations = "classpath:application-integrationtest.properties")
@@ -35,6 +38,7 @@ public class TestDTProviderRuleService {
 	private DTProviderRuleDao dtCloudProviderDao;
 
 	@Test
+	@Ignore
 	public void testGetCloudProvider() {
 		DTProvidersModel providerModel = getprovidersModel();
 		List<DTProvidersModel> providerModelList = new ArrayList<DTProvidersModel>();
@@ -47,6 +51,7 @@ public class TestDTProviderRuleService {
 	}
 
 	@Test
+	@Ignore
 	public void testGetCloudProviderRules() {
 		List<DTProviderRuleModel> cloudProviderRuleModelList = new ArrayList<>();
 		DTProviderRuleModel providerRuleModel = getRuleModel2();
@@ -88,11 +93,12 @@ public class TestDTProviderRuleService {
 		cloudProviderRuleModel.setEvaluationOrder(1);
 		cloudProviderRuleModel.setQuestiontextEN("question1");
 		cloudProviderRuleModel.setRuleOptionIds("1,2,3,5,5");
-		cloudProviderRuleModel.setRuleOptionTextEN("ans1,ans2,ans3");
+	    cloudProviderRuleModel.setRuleOptionTextEN("ans1,ans2,ans3");
 		return cloudProviderRuleModel;
 	}
 
 	@Test
+//	@Ignore
 	public void testSaveCloudProviderRule() {
 		List<DTProviderRuleModel> cloudProviderRuleModelList = new ArrayList<>();
 		DTProviderRuleModel providerRuleModel = getRuleModel2();

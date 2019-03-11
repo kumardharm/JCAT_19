@@ -14,22 +14,23 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cg.jcat.api.dao.AssessmentQuestionModel;
 import com.cg.jcat.api.entity.AssessmentQuestion;
 
+
 @RestController
 @RequestMapping("/assessmentQuestion")
 public interface IAssessmentQuestionController {
-
+	
 	@GetMapping("/getAll")
 	public List<AssessmentQuestion> getQuestions();
-
+	
 	@GetMapping("/get/question/{questionId}")
 	public AssessmentQuestionModel getQuestionById(@PathVariable int questionId);
-
+	
 	@PostMapping("/createQuestion")
 	public void saveQuestions(@RequestBody AssessmentQuestionModel question);
-
+	
 	@PutMapping("/updateQuestion")
 	public void updateQuestion(@RequestBody AssessmentQuestionModel question);
-
+	
 	@DeleteMapping("/deleteQuestion/{questionId}")
 	public void deleteQuestion(@PathVariable int questionId);
 

@@ -14,13 +14,13 @@ import com.cg.jcat.api.dao.QuestionOptionModel;
 @RestController
 @RequestMapping("/questionOption")
 public interface IQuestionOptionController {
-
+	
 	@GetMapping("/getAll")
 	public List<QuestionOptionModel> getQuestionOptions();
-
+	
 	@PostMapping("/create")
 	public void saveQuestionOption(@RequestBody QuestionOptionModel questionOptionModel);
-
+	
 	@PutMapping("/update")
 	public void updateQuestionOption(@RequestBody QuestionOptionModel questionOptionModel);
 

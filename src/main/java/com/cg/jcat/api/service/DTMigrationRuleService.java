@@ -16,10 +16,10 @@ import com.cg.jcat.api.exception.OptionTextNotNullException;
 import com.cg.jcat.api.exception.SystemExceptions;
 
 @Component
-public class DTMigrationRuleService implements IDTMigrationRuleService {
-
+public class DTMigrationRuleService implements IDTMigrationRuleService{
+	
 	private static final Logger logger = LoggerFactory.getLogger(DTMigrationRuleDao.class);
-
+	
 	@Autowired
 	DTMigrationRuleDao dtMigrationRuleDao;
 
@@ -31,14 +31,15 @@ public class DTMigrationRuleService implements IDTMigrationRuleService {
 	}
 
 	@Override
-	public boolean saveMigrationRule(List<DTMigrationRuleModel> dtMigrationRuleModels)
-			throws SystemExceptions, OptionTextNotNullException {
+	public boolean saveMigrationRule(List<DTMigrationRuleModel> dtMigrationRuleModels) throws SystemExceptions, OptionTextNotNullException {
 		boolean afterSavedValue = false;
 		StringBuffer strBuff = new StringBuffer();
-		for (DTMigrationRuleModel migrationRuleModel : dtMigrationRuleModels) {
-			if (StringUtils.isEmpty(migrationRuleModel.getQuestiontextEN())) {
+		for(DTMigrationRuleModel migrationRuleModel : dtMigrationRuleModels)
+		{
+			if(StringUtils.isEmpty(migrationRuleModel.getQuestiontextEN()))
+			{
 				strBuff.append("Option text for question " + migrationRuleModel.getQuestionId() + " is empty!\n");
-			} else {
+			}else {
 				String optionText[] = migrationRuleModel.getRuleOptionTextEN().split(",");
 				String optionIds[] = migrationRuleModel.getRuleOptionIds().split(",");
 				if (optionText.length != optionIds.length) {
@@ -48,16 +49,15 @@ public class DTMigrationRuleService implements IDTMigrationRuleService {
 			}
 		}
 		if (strBuff.length() == 0) {
-
+			
 			afterSavedValue = dtMigrationRuleDao.saveDTMigrationRule(dtMigrationRuleModels);
 		} else {
-			logger.error("Error option text can't be null,and number of option text and option ids should be same :: "
-					+ strBuff.toString());
+			logger.error("Error option text can't be null,and number of option text and option ids should be same :: " +strBuff.toString());
 			throw new OptionTextNotNullException(strBuff.toString());
 		}
 		System.out.println(afterSavedValue);
 		return afterSavedValue;
-
+		
 	}
 
 	@Override

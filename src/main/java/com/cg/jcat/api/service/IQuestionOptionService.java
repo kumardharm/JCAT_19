@@ -10,7 +10,7 @@ import com.cg.jcat.api.exception.JcatExceptions;
 
 @Service
 public interface IQuestionOptionService {
-
+	
 	public List<QuestionOptionModel> getQuestionOptions() throws JcatExceptions;
 
 	public boolean saveQuestionOption(QuestionOptionModel questionOptionModel);

@@ -1,7 +1,8 @@
 package com.cg.jcat.api.dao;
 
-public class ApplicationModel {
 
+public class ApplicationModel {
+	
 	private int aid;
 	private String applicationId;
 	private String applicationName;
@@ -16,119 +17,91 @@ public class ApplicationModel {
 	private String reMigrationPattern;
 	private String dtCloudProvider;
 	private String reCloudProvider;
-
 	public int getAid() {
 		return aid;
 	}
-
 	public void setAid(int aid) {
 		this.aid = aid;
 	}
-
 	public String getApplicationId() {
 		return applicationId;
 	}
-
 	public void setApplicationId(String applicationId) {
 		this.applicationId = applicationId;
 	}
-
 	public String getApplicationName() {
 		return applicationName;
 	}
-
 	public void setApplicationName(String applicationName) {
 		this.applicationName = applicationName;
 	}
-
 	public String getApplicationDescription() {
 		return applicationDescription;
 	}
-
 	public void setApplicationDescription(String applicationDescription) {
 		this.applicationDescription = applicationDescription;
 	}
-
 	public String getApplicationDepartment() {
 		return applicationDepartment;
 	}
-
 	public void setApplicationDepartment(String applicationDepartment) {
 		this.applicationDepartment = applicationDepartment;
 	}
-
 	public int getPriority() {
 		return priority;
 	}
-
 	public void setPriority(int priority) {
 		this.priority = priority;
 	}
-
 	public int getApplicationUser() {
 		return applicationUser;
 	}
-
 	public void setApplicationUser(int applicationUser) {
 		this.applicationUser = applicationUser;
 	}
-
 	public int getAssessmentStage() {
 		return assessmentStage;
 	}
-
 	public void setAssessmentStage(int assessmentStage) {
 		this.assessmentStage = assessmentStage;
 	}
-
+	
 	public boolean isDTCloudable() {
 		return isDTCloudable;
 	}
-
 	public void setDTCloudable(boolean isDTCloudable) {
 		this.isDTCloudable = isDTCloudable;
 	}
-
 	public boolean isRECloudable() {
 		return isRECloudable;
 	}
-
 	public void setRECloudable(boolean isRECloudable) {
 		this.isRECloudable = isRECloudable;
 	}
-
 	public String getDtMigrationPattern() {
 		return dtMigrationPattern;
 	}
-
 	public void setDtMigrationPattern(String dtMigrationPattern) {
 		this.dtMigrationPattern = dtMigrationPattern;
 	}
-
 	public String getReMigrationPattern() {
 		return reMigrationPattern;
 	}
-
 	public void setReMigrationPattern(String reMigrationPattern) {
 		this.reMigrationPattern = reMigrationPattern;
 	}
-
 	public String getDtCloudProvider() {
 		return dtCloudProvider;
 	}
-
 	public void setDtCloudProvider(String dtCloudProvider) {
 		this.dtCloudProvider = dtCloudProvider;
 	}
-
 	public String getReCloudProvider() {
 		return reCloudProvider;
 	}
-
 	public void setReCloudProvider(String reCloudProvider) {
 		this.reCloudProvider = reCloudProvider;
 	}
-
 	@Override
 	public String toString() {
 		return "ApplicationModel [aid=" + aid + ", applicationId=" + applicationId + ", applicationName="
@@ -139,5 +112,11 @@ public class ApplicationModel {
 				+ reMigrationPattern + ", dtCloudProvider=" + dtCloudProvider + ", reCloudProvider=" + reCloudProvider
 				+ "]";
 	}
+	
+	
+	
+	
+	
+	
 
 }

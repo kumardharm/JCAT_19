@@ -9,68 +9,54 @@ public class DTMigrationRuleModel {
 	private String questiontextEN;
 	private String ruleOptionIds;
 	private String ruleOptionTextEN;
-
+	
 	public int getMigrationRuleId() {
 		return migrationRuleId;
 	}
-
 	public void setMigrationRuleId(int migrationRuleId) {
 		this.migrationRuleId = migrationRuleId;
 	}
-
 	public int getMigrationId() {
 		return migrationId;
 	}
-
 	public void setMigrationId(int migrationId) {
 		this.migrationId = migrationId;
 	}
-
 	public int getExecutionOrder() {
 		return executionOrder;
 	}
-
 	public void setExecutionOrder(int executionOrder) {
 		this.executionOrder = executionOrder;
 	}
-
 	public int getQuestionId() {
 		return questionId;
 	}
-
 	public void setQuestionId(int questionId) {
 		this.questionId = questionId;
 	}
-
 	public String getQuestiontextEN() {
 		return questiontextEN;
 	}
-
 	public void setQuestiontextEN(String questiontextEN) {
 		this.questiontextEN = questiontextEN;
 	}
-
 	public String getRuleOptionIds() {
 		return ruleOptionIds;
 	}
-
 	public void setRuleOptionIds(String ruleOptionIds) {
 		this.ruleOptionIds = ruleOptionIds;
 	}
-
 	public String getRuleOptionTextEN() {
 		return ruleOptionTextEN;
 	}
-
 	public void setRuleOptionTextEN(String ruleOptionTextEN) {
 		this.ruleOptionTextEN = ruleOptionTextEN;
 	}
-
 	@Override
 	public String toString() {
 		return "DTMigrationRuleModel [migrationRuleId=" + migrationRuleId + ", migrationId=" + migrationId
 				+ ", executionOrder=" + executionOrder + ", questionId=" + questionId + ", questiontextEN="
 				+ questiontextEN + ", ruleOptionIds=" + ruleOptionIds + ", ruleOptionTextEN=" + ruleOptionTextEN + "]";
 	}
-
+	
 }

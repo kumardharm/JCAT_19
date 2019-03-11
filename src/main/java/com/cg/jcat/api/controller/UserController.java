@@ -5,12 +5,10 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.cg.jcat.api.dao.UserModel;
 import com.cg.jcat.api.entity.ValidationException;
@@ -18,8 +16,8 @@ import com.cg.jcat.api.exception.JcatExceptions;
 import com.cg.jcat.api.exception.SystemExceptions;
 import com.cg.jcat.api.exception.UserAlreadyExistsException;
 import com.cg.jcat.api.service.IUserService;
+
 @Component
-@Scope("session")
 public class UserController implements IUserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -67,10 +65,15 @@ public class UserController implements IUserController {
 	}
 
 	@Override
-	public boolean updateUserId(String modifiedBy, UserModel user){
+	public boolean updateUserId(String modifiedBy, UserModel user) throws SystemExceptions, UserAlreadyExistsException {
 		boolean value = false;
-		value = userService.updateUsers(user, modifiedBy);
-		return value;
+		try {
+			value = userService.updateUsers(user, modifiedBy);
+			return value;
+		} catch (JcatExceptions e) {
+			logger.error("Error while updating user " + user.getUsername(), e);
+			throw e;
+		}
 	}
 
 	@Override
@@ -84,12 +87,5 @@ public class UserController implements IUserController {
 			throw e;
 		}
 	}
-
-	@Override
-	public UserModel login(String username, String password) {
-		return userService.login(username, password);
-	}
-	
-	
 
 }

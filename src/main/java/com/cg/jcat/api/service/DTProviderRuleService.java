@@ -18,7 +18,7 @@ import com.cg.jcat.api.exception.SystemExceptions;
 
 @Component
 public class DTProviderRuleService implements IDTProviderRuleService {
-
+	
 	private static final Logger logger = LoggerFactory.getLogger(UserDao.class);
 
 	@Autowired
@@ -27,20 +27,19 @@ public class DTProviderRuleService implements IDTProviderRuleService {
 	@Override
 	public List<DTProvidersModel> getCloudProvider() {
 		List<DTProvidersModel> providersModel = dtCloudProviderDao.getCloudProvider();
-		logger.info("Retriving all providers from DB!, number of providers " + providersModel.size());
+		logger.info("Retriving all providers from DB!, number of providers "+providersModel.size());
 		return providersModel;
 	}
 
 	@Override
-	public boolean saveCloudProviderRule(List<DTProviderRuleModel> cloudProviderRuleModelList)
-			throws SystemExceptions, OptionTextNotNullException, CountMissMatchException {
+	public boolean saveCloudProviderRule(List<DTProviderRuleModel> cloudProviderRuleModelList) throws SystemExceptions, OptionTextNotNullException, CountMissMatchException {
 		boolean afterSavedValue = false;
 
-		StringBuilder strBuff = new StringBuilder();
+		StringBuffer strBuff = new StringBuffer();
 		for (DTProviderRuleModel cloudProviderRuleModel : cloudProviderRuleModelList) {
 			if (StringUtils.isEmpty(cloudProviderRuleModel.getRuleOptionTextEN())) {
 				strBuff.append("Option text for question " + cloudProviderRuleModel.getQuestionId() + " is empty!\n");
-				logger.error("Option text can't be null :", strBuff.toString());
+				logger.error("Option text can't be null :",strBuff.toString());
 				throw new OptionTextNotNullException(strBuff.toString());
 			} else {
 				String optionText[] = cloudProviderRuleModel.getRuleOptionTextEN().split(",");
@@ -52,11 +51,10 @@ public class DTProviderRuleService implements IDTProviderRuleService {
 			}
 		}
 		if (strBuff.length() == 0) {
-
+			
 			afterSavedValue = dtCloudProviderDao.saveProviderRule(cloudProviderRuleModelList);
 		} else {
-			logger.error(
-					"Error option text number of option text and option ids should be same :: " + strBuff.toString());
+			logger.error("Error option text number of option text and option ids should be same :: " +strBuff.toString());
 			throw new CountMissMatchException(strBuff.toString());
 		}
 
@@ -67,7 +65,7 @@ public class DTProviderRuleService implements IDTProviderRuleService {
 	//
 	public List<DTProviderRuleModel> getCloudProviderRules(int providerId) {
 		List<DTProviderRuleModel> DTProviderRuleModel = dtCloudProviderDao.getCloudProviderRules(providerId);
-		logger.info("Retriving all providers from DB! based on id, number of providers " + DTProviderRuleModel.size());
+		logger.info("Retriving all providers from DB! based on id, number of providers "+DTProviderRuleModel.size());
 		return DTProviderRuleModel;
 	}
 

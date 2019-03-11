@@ -14,16 +14,15 @@ import com.cg.jcat.api.service.IDTCloudableRuleService;
 @Component
 public class DTCloudableRuleController implements IDTCloudableRuleController {
 	private static final Logger logger = LoggerFactory.getLogger(DTCloudableRuleController.class);
-
-	@Autowired
-	IDTCloudableRuleService iDTCloudableRuleService;
-
+	
+	@Autowired IDTCloudableRuleService iDTCloudableRuleService;
+	 
 	@Override
-	public List<DTCloudableRuleModel> getCloudableRule() throws SystemExceptions {
+	public List<DTCloudableRuleModel> getCloudableRule() throws SystemExceptions  {
 		try {
-			return iDTCloudableRuleService.getCloudableRule();
-
-		} catch (Exception e) {
+		return iDTCloudableRuleService.getCloudableRule();
+		
+		}catch(Exception e) {
 			logger.error("Error in getting all cloudable rules : getCloudableRule()", e);
 			throw new SystemExceptions("getCloudableRule()");
 		}
@@ -31,14 +30,16 @@ public class DTCloudableRuleController implements IDTCloudableRuleController {
 
 	@Override
 	public DTCloudableRuleModel getCloudableRuleById(int cloudableRuleId) {
-
+		
 		return iDTCloudableRuleService.getCloudableRuleById(cloudableRuleId);
 	}
 
 	@Override
 	public boolean saveCloudableRule(List<DTCloudableRuleModel> dTCloudableRuleModelList) throws SystemExceptions {
-
+		
 		return iDTCloudableRuleService.saveCloudableRule(dTCloudableRuleModelList);
 	}
+	
+	
 
 }

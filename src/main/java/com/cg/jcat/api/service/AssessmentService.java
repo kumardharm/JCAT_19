@@ -22,7 +22,6 @@ import com.cg.jcat.api.dao.DTProviderRuleModel;
 import com.cg.jcat.api.dao.DTProvidersModel;
 import com.cg.jcat.api.entity.Answer;
 import com.cg.jcat.api.entity.Application;
-import com.cg.jcat.api.exception.ApplicationIdNotFoundException;
 import com.cg.jcat.api.exception.CountMissMatchException;
 import com.cg.jcat.api.exception.OptionTextNotNullException;
 import com.cg.jcat.api.exception.SystemExceptions;
@@ -30,7 +29,7 @@ import com.cg.jcat.api.dao.AnswerModel;
 
 @Component
 public class AssessmentService implements IAssessmentService {
-
+	
 	private static final Logger logger = LoggerFactory.getLogger(AssessmentDao.class);
 
 	@Autowired
@@ -54,9 +53,9 @@ public class AssessmentService implements IAssessmentService {
 
 	@Override
 	public boolean saveAnswers(List<AnswerModel> answerModels, int applicationId)
-			throws SystemExceptions, OptionTextNotNullException, CountMissMatchException {
+			throws SystemExceptions, OptionTextNotNullException {
 		boolean afterSavedValue = false;
-		StringBuilder strBuff = new StringBuilder();
+		StringBuffer strBuff = new StringBuffer();
 		for (AnswerModel answerModel : answerModels) {
 			if (StringUtils.isEmpty(answerModel.getOptionTextsEN())) {
 				strBuff.append("Option text for question " + answerModel.getQuestionId() + " is empty!\n");
@@ -70,49 +69,34 @@ public class AssessmentService implements IAssessmentService {
 				}
 			}
 		}
-		if (strBuff.length() == 0) {
-
-			afterSavedValue = assessmentDao.saveAnswers(answerModels, applicationId);
-		} else {
-			logger.error(
-					"Error option text number of option text and option ids should be same :: " + strBuff.toString());
-			throw new CountMissMatchException(strBuff.toString());
-		}
+		afterSavedValue = assessmentDao.saveAnswers(answerModels, applicationId);
 		return afterSavedValue;
 	}
 
 	@Override
-	public void finalized(List<AnswerModel> answerModels, int applicationId, int stage) throws SystemExceptions,
-			OptionTextNotNullException, ApplicationIdNotFoundException, CountMissMatchException {
+	public void finalized(List<AnswerModel> answerModels, int applicationId, int stage)
+			throws SystemExceptions, OptionTextNotNullException {
+		saveAnswers(answerModels, applicationId);
 
-		Application application = assessmentDao.getApplicationByApplicationId(applicationId);
-		if (application != null) {
-			saveAnswers(answerModels, applicationId);
+		switch (stage) {
+		case 1:
+			stage1(applicationId);
+			break;
 
-			switch (stage) {
-			case 1:
-				stage1(application);
-				break;
+		case 2:
+			stage2(applicationId);
+			break;
 
-			case 2:
-				stage2(application);
-				break;
-
-			default:
-				logger.error("Error stage does not exist in finalized()! with given stage " + stage);
-			}
-		} else {
-			logger.error("Error Application does not exist ! with given id " + applicationId);
-			throw new ApplicationIdNotFoundException(Integer.toString(applicationId));
+		default:
 		}
-
 	}
 
-	private void stage1(Application application) {
-		cloudableCheck(application);
+	private void stage1(int applicationId) {
+		cloudableCheck(applicationId);
 	}
 
-	private void stage2(Application application) {
+	private void stage2(int applicationId) {
+		Application application = assessmentDao.getApplicationByApplicationId(applicationId);
 		migrationCheck(application);
 		cloudProviderCheck(application);
 		application.setAssessmentStage(2);
@@ -121,12 +105,13 @@ public class AssessmentService implements IAssessmentService {
 		assessmentDao.saveApp(application);
 	}
 
-	public boolean cloudableCheck(Application application) {
+	public boolean cloudableCheck(int applicationId) {
 		int cloudableRuleFlag = 0;
+		Application application = assessmentDao.getApplicationByApplicationId(applicationId);
 		application.setAssessmentStage(1);
 
 		List<DTCloudableRuleModel> cloudableRuleList = dtCloudableRuleDao.getCloudableRule();
-		List<Answer> answersList = assessmentDao.getAnswersByApplicationId(application.getAid());
+		List<Answer> answersList = assessmentDao.getAnswersByApplicationId(applicationId);
 
 		for (DTCloudableRuleModel cloudableRule : cloudableRuleList) {
 

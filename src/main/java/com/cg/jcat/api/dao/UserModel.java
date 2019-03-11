@@ -1,16 +1,24 @@
 package com.cg.jcat.api.dao;
 
-public class UserModel {
+import javax.validation.constraints.NotNull;
 
-	private int userId;
+public class UserModel {
+	
+	private  int userId;
 	private String firstName;
 	private String lastName;
+	@NotNull
 	private String username;
+	@NotNull
 	private String password;
 	private String company;
 	private String userEmail;
+	@NotNull
 	private boolean isAdmin;
-
+	private String modifiedBy;
+	@NotNull
+	private String createdBy;
+	
 	public int getUserId() {
 		return userId;
 	}
@@ -75,11 +83,29 @@ public class UserModel {
 		this.isAdmin = isAdmin;
 	}
 
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
 	@Override
 	public String toString() {
 		return "UserModel [userId=" + userId + ", firstName=" + firstName + ", lastName=" + lastName + ", username="
 				+ username + ", password=" + password + ", company=" + company + ", userEmail=" + userEmail
-				+ ", isAdmin=" + isAdmin + "]";
+				+ ", isAdmin=" + isAdmin + ", modifiedBy=" + modifiedBy + ", createdBy=" + createdBy + "]";
 	}
+	
+	
 
 }

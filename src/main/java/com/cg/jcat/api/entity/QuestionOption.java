@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -13,26 +14,26 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "question_option")
+@Table(name="question_option")
 public class QuestionOption {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "option_id")
+	@Column(name="option_id")
 	private int optionId;
-
-	@Column(name = "option_text_EN")
+	
+	@Column(name="option_text_EN")
 	@NotNull
 	private String optionTextEN;
-
+	
 	@Lob
-	@Column(name = "option_text_lang2")
+	@Column(name="option_text_lang2")
 	private String optionTextLang2;
-
+	
 	@ManyToOne
-	// @JoinColumn(name = "question_id")
+  //  @JoinColumn(name = "question_id")
 	private AssessmentQuestion assessmentQuestion;
-
+	
 	public int getOptionId() {
 		return optionId;
 	}
@@ -72,4 +73,5 @@ public class QuestionOption {
 				+ optionTextLang2 + "]";
 	}
 
+	
 }

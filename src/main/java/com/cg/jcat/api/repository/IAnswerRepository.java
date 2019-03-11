@@ -14,6 +14,6 @@ public interface IAnswerRepository extends JpaRepository<Answer, Integer>{
 
 	List<Answer> findByApplicationId(int applicationId);
 
-
+	void deleteByAnswerId(Integer value);
 
 }

@@ -15,82 +15,82 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.ColumnDefault;
 
 @Entity
-@Table(name = "application", uniqueConstraints = { @UniqueConstraint(columnNames = "application_id") })
+@Table(name="application",uniqueConstraints = {@UniqueConstraint(columnNames = "application_id")})
 public class Application {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int aid;
-
+	
 	@NotNull
 	@Column(name = "application_id")
 	private String applicationId;
-
+	
 	@Column(name = "application_name")
 	private String applicationName;
-
+	
 	@Lob
 	@Column(name = "application_description")
 	private String applicationDescription;
-
+	
 	@Column(name = "application_department")
 	private String applicationDepartment;
-
+	
 	@Column(name = "priority")
 	private int priority;
-
+	
 	@Column(name = "application_user")
 	private int applicationUser;
-
+	
 	@ColumnDefault("0")
 	@Column(name = "is_deleted")
 	private boolean isDeleted;
-
+	
 	@ColumnDefault("1")
 	@Column(name = "is_activate")
 	private boolean isActivate = true;
-
+	
 	@ColumnDefault("0")
 	@Column(name = "assessment_stage")
 	@NotNull
 	private int assessmentStage;
-
+	
 	@Column(name = "is_assessment_completed")
 	private boolean isAssessmentCompleted;
-
+	
 	@Column(name = "assessment_completion_time")
 	private Date assessmentCompletionTime;
-
+	
 	@ColumnDefault("0")
 	@Column(name = "is_dt_cloudable")
 	private boolean isDTCloudable;
-
+	
 	@ColumnDefault("0")
 	@Column(name = "is_re_cloudable")
 	private boolean isReCloudable;
-
+	
 	@Column(name = "dt_migration_pattern")
 	private String dtMigrationPattern;
-
+	
 	@Column(name = "re_migration_pattern")
 	private String reMigrationPattern;
-
+	
 	@Column(name = "dt_cloud_provider")
 	private String dtCloudProvider;
-
+	
 	@Column(name = "re_cloud_provider")
 	private String reCloudProvider;
-
+	
 	@Column(name = "created_by")
 	@NotNull
 	private String createdBy;
-
+	
 	@Column(name = "created_time")
-	@NotNull
+	@NotNull	
 	private Date createdTime;
-
+	
 	@Column(name = "modified_by")
 	private String modifiedBy;
-
+	
 	@Column(name = "modified_time")
 	private Date modifiedTime;
 
@@ -284,4 +284,6 @@ public class Application {
 				+ modifiedTime + "]";
 	}
 
+	
+	
 }

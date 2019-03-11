@@ -14,35 +14,33 @@ import com.cg.jcat.api.exception.CountMissMatchException;
 import com.cg.jcat.api.exception.OptionTextNotNullException;
 import com.cg.jcat.api.exception.SystemExceptions;
 import com.cg.jcat.api.service.IDTProviderRuleService;
-
 @Component
-public class DTProviderRuleController implements IDTProviderRuleController {
-
+public class DTProviderRuleController implements IDTProviderRuleController{
+	
 	private static final Logger logger = LoggerFactory.getLogger(JcatApiApplication.class);
-
+	
 	@Autowired
 	private IDTProviderRuleService dtCloudProviderService;
 
 	@Override
 	public List<DTProvidersModel> getCloudProvider() throws SystemExceptions {
 		try {
-			return dtCloudProviderService.getCloudProvider();
-		} catch (Exception e) {
+		return dtCloudProviderService.getCloudProvider();
+		}catch (Exception e) {
 			logger.error("Error in getting all cloud providers : getCloudProvider()", e);
 			throw new SystemExceptions("getCloudProvider()");
 		}
 	}
 
 	@Override
-	public boolean saveCloudProviderRule(List<DTProviderRuleModel> cloudProviderRuleModelList)
-			throws SystemExceptions, OptionTextNotNullException, CountMissMatchException {
-
+	public boolean saveCloudProviderRule(List<DTProviderRuleModel> cloudProviderRuleModelList) throws SystemExceptions,OptionTextNotNullException,CountMissMatchException {
+		
 		return dtCloudProviderService.saveCloudProviderRule(cloudProviderRuleModelList);
 	}
 
 	@Override
 	public List<DTProviderRuleModel> getCloudProviderRules(int providerId) {
-
+		
 		return dtCloudProviderService.getCloudProviderRules(providerId);
 	}
 

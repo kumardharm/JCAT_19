@@ -2,61 +2,64 @@ package com.cg.jcat.api.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "dt_provider_rule_history")
+@Table(name="dt_provider_rule_history")
 public class DTProviderRuleHistory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")
-	private int id;
-
+	@Column(name="id")
+    private int	id;
+    
 	@NotNull
-	@Column(name = "provider_rule_id")
+    @Column(name="provider_rule_id")
 	private int providerRuleId;
-
-	@Column(name = "execution_order")
+    	
+  	@Column(name="execution_order")
 	private int executionOrder;
-
+		
 	@Lob
 	@NotNull
-	@Column(name = "question_text_EN")
+	@Column(name="question_text_EN")
 	private String questionTextEN;
-
+	
 	@Lob
 	@NotNull
-	@Column(name = "rule_option_ids")
+	@Column(name="rule_option_ids")
 	private String ruleOptionIds;
-
+	
 	@Lob
 	@NotNull
-	@Column(name = "rule_option_text_EN")
+	@Column(name="rule_option_text_EN")
 	private String ruleOptionTextEN;
-
+	
 	@NotNull
-	@Column(name = "created_by")
+	@Column(name="created_by")
 	private String createdBy;
-
+	
 	@NotNull
-	@Column(name = "created_time")
+	@Column(name="created_time")
 	private Date createdTime;
+	
 
 	@OneToOne(fetch = FetchType.LAZY)
-	// @JoinColumn(name="providerId")
+//	@JoinColumn(name="providerId")
 	private DTProviders dtProviders;
-
+	
 	@OneToOne(fetch = FetchType.LAZY)
-	// @JoinColumn(name="questionId")
+//	@JoinColumn(name="questionId")
 	private AssessmentQuestion assessmentQuestion;
 
 	public int getId() {
@@ -147,4 +150,5 @@ public class DTProviderRuleHistory {
 				+ ", dtProviders=" + dtProviders + ", assessmentQuestion=" + assessmentQuestion + "]";
 	}
 
+	
 }

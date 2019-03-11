@@ -13,23 +13,23 @@ import javax.validation.constraints.NotNull;
 public class AssessmentCopyMapping {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "mapping_id")
+	@Column(name="mapping_id")
 	private int mappingId;
-
+	
 	@NotNull
-	@Column(name = "source_aid")
+	@Column(name="source_aid")
 	private int sourceAid;
-
+	
 	@NotNull
-	@Column(name = "target_aid")
+	@Column(name="target_aid")
 	private int targetAid;
-
+	
 	@NotNull
-	@Column(name = "created_by")
+	@Column(name="created_by")
 	private String createdBy;
-
+	
 	@NotNull
-	@Column(name = "created_time")
+	@Column(name="created_time")
 	private Date createdTime;
 
 	public int getMappingId() {
@@ -77,5 +77,5 @@ public class AssessmentCopyMapping {
 		return "assessmentCopyMapping [mappingId=" + mappingId + ", sourceAid=" + sourceAid + ", targetAid=" + targetAid
 				+ ", createdBy=" + createdBy + ", createdTime=" + createdTime + "]";
 	}
-
+	
 }

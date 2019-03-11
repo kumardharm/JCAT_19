@@ -10,7 +10,7 @@ import com.cg.jcat.api.repository.IQuestionOptionRepository;
 
 @Component
 public class QuestionOptionDao {
-
+	
 	@Autowired
 	private IQuestionOptionRepository questionRepository;
 
@@ -19,14 +19,13 @@ public class QuestionOptionDao {
 		try {
 			questionOptionList = questionRepository.findAll();
 		} catch (Exception e) {
-
+			
 		}
 		List<QuestionOptionModel> questionOptionDaoList = new ArrayList<QuestionOptionModel>();
 		return togetQuestionOptions(questionOptionList, questionOptionDaoList);
 	}
 
-	private List<QuestionOptionModel> togetQuestionOptions(List<QuestionOption> questionOptionList,
-			List<QuestionOptionModel> questionOptionDaoList) {
+	private List<QuestionOptionModel> togetQuestionOptions(List<QuestionOption> questionOptionList, List<QuestionOptionModel> questionOptionDaoList) {
 
 		for (QuestionOption questionOption : questionOptionList) {
 			questionOptionDaoList.add(toQuestionOptionDao(questionOption));
@@ -40,24 +39,24 @@ public class QuestionOptionDao {
 		questionOptionModel.setOptionId(questionOption.getOptionId());
 		questionOptionModel.setOptionTextEN(questionOption.getOptionTextEN());
 		questionOptionModel.setOptionTextLang2(questionOption.getOptionTextLang2());
-		// questionOptionModel.setQuestionId(questionOption.getQuestionId());
+		//questionOptionModel.setQuestionId(questionOption.getQuestionId());
 		return questionOptionModel;
 	}
-
+	
 	private QuestionOption toQuestionOption(QuestionOptionModel questionOptionModel) {
 
 		QuestionOption questionOption = new QuestionOption();
 		questionOption.setOptionId(questionOptionModel.getOptionId());
 		questionOption.setOptionTextEN(questionOptionModel.getOptionTextEN());
 		questionOption.setOptionTextLang2(questionOptionModel.getOptionTextLang2());
-		// questionOption.setQuestionId(questionOptionModel.getQuestionId());
+		//questionOption.setQuestionId(questionOptionModel.getQuestionId());
 		return questionOption;
 	}
 
 	public QuestionOptionModel saveQuestionOptions(QuestionOptionModel questionOptionModel) {
 		try {
 			saveQuestionOption(questionOptionModel);
-		} catch (Exception e) {
+		}catch (Exception e) {
 			return null;
 		}
 		return null;
@@ -65,8 +64,8 @@ public class QuestionOptionDao {
 
 	public boolean saveQuestionOption(QuestionOptionModel questionOptionModel) {
 		boolean saveResult = false;
-		saveResult = questionRepository.save(toQuestionOption(questionOptionModel)) != null;
-		return saveResult;
+		saveResult= questionRepository.save(toQuestionOption(questionOptionModel)) != null;
+		return  saveResult;
 	}
 
 	public boolean updateQuestionOption(QuestionOptionModel questionOptionModel) {
@@ -76,10 +75,12 @@ public class QuestionOptionDao {
 	}
 
 	public QuestionOption findByOptionId(int optionId) {
+		// TODO Auto-generated method stub
 		return questionRepository.findByOptionId(optionId);
 	}
-
-	public QuestionOption findByOptionTextEN(String optionTextEN) {
+	
+	public QuestionOption findByOptionTextEN(String optionTextEN)
+	{
 		return questionRepository.findByOptionTextEN(optionTextEN);
 	}
 }

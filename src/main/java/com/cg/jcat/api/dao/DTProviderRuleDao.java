@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.cg.jcat.api.entity.Application;
 import com.cg.jcat.api.entity.AssessmentQuestion;
 import com.cg.jcat.api.entity.DTProviderRule;
 import com.cg.jcat.api.entity.DTProviderRuleHistory;

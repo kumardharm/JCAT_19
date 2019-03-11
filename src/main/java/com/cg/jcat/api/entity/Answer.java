@@ -9,47 +9,49 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 
+import org.hibernate.annotations.ColumnDefault;
+
 @Entity
 public class Answer {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "answer_id")
 	private int answerId;
-
+	
 	@Column(name = "application_id")
 	private int applicationId;
-
+	
 	@Column(name = "question_id")
 	private int questionId;
-
+	
 	@Lob
 	@Column(name = "question_text_EN")
 	private String questionTextEN;
-
+	
 	@Lob
 	@Column(name = "option_ids")
 	private String optionIds;
-
+	
 	@Lob
 	@Column(name = "option_texts_EN")
 	private String optionTextsEN;
-
-	// @ColumnDefault("0")
+	
+	//@ColumnDefault("0")
 	@Column(name = "dt_cloudable_rule_result")
 	private boolean dtCloudableRuleResult;
-
-	// @ColumnDefault("0")
+	
+	//@ColumnDefault("0")
 	@Column(name = "dt_migration_rule_result")
 	private boolean dtMigrationRuleResult;
-
-	// @ColumnDefault("0")
+	
+	//@ColumnDefault("0")
 	@Column(name = "dt_provider_rule_result")
 	private boolean dtProviderRuleResult;
-
+	
 	@Column(name = "modified_by")
 	private String modifiedBy;
-
+	
 	@Column(name = "modified_time")
 	private Date modifiedTime;
 

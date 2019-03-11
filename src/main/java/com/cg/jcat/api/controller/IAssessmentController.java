@@ -9,25 +9,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.cg.jcat.api.dao.AnswerModel;
-import com.cg.jcat.api.exception.ApplicationIdNotFoundException;
-import com.cg.jcat.api.exception.CountMissMatchException;
 import com.cg.jcat.api.exception.OptionTextNotNullException;
 import com.cg.jcat.api.exception.SystemExceptions;
 
 @RestController
 @RequestMapping("/assessment")
 public interface IAssessmentController {
-
-	@GetMapping("answer/get/{applicationId}")
+	
+	@GetMapping
+	@RequestMapping("answer/get/{applicationId}")
 	public List<AnswerModel> getAnswers(@PathVariable int applicationId);
-
-	@PostMapping("answer/create/{applicationId}")
-	public boolean saveAnswers(@RequestBody List<AnswerModel> answerModels, @PathVariable int applicationId)
-			throws SystemExceptions, OptionTextNotNullException, CountMissMatchException;
-
-	@PostMapping("finalize/{applicationId}/{assessmentStage}")
-	public void finalized(@RequestBody List<AnswerModel> answerModels, @PathVariable int applicationId,
-			@PathVariable int assessmentStage) throws SystemExceptions, OptionTextNotNullException,
-			ApplicationIdNotFoundException, CountMissMatchException;
-
+	
+	@PostMapping
+	@RequestMapping("answer/create/{applicationId}")
+	public boolean saveAnswers(@RequestBody List<AnswerModel> answerModels, @PathVariable int applicationId) throws SystemExceptions, OptionTextNotNullException; 
+	
+	@PostMapping
+	@RequestMapping("finalize/{applicationId}/{assessmentStage}")
+	public void finalized(@RequestBody List<AnswerModel> answerModels, @PathVariable int applicationId, @PathVariable int assessmentStage) throws SystemExceptions, OptionTextNotNullException;
+	
+	
 }

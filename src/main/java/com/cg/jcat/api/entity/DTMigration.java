@@ -10,9 +10,9 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "dt_migration")
+@Table(name="dt_migration")
 public class DTMigration {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int migrationId;
@@ -25,71 +25,55 @@ public class DTMigration {
 	private Date createdTime;
 	private String modifiedBy;
 	private Date modifiedTime;
-
+	
 	public int getMigrationId() {
 		return migrationId;
 	}
-
 	public void setMigrationId(int migrationId) {
 		this.migrationId = migrationId;
 	}
-
 	public int getEvaluationOrder() {
 		return evaluationOrder;
 	}
-
 	public void setEvaluationOrder(int evaluationOrder) {
 		this.evaluationOrder = evaluationOrder;
 	}
-
 	public String getMigration_pattern() {
 		return migration_pattern;
 	}
-
 	public void setMigration_pattern(String migration_pattern) {
 		this.migration_pattern = migration_pattern;
 	}
-
 	public String getLogicalOperator() {
 		return logicalOperator;
 	}
-
 	public void setLogicalOperator(String logicalOperator) {
 		this.logicalOperator = logicalOperator;
 	}
-
 	public String getCreatedBy() {
 		return createdBy;
 	}
-
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
-
 	public Date getCreatedTtime() {
 		return createdTime;
 	}
-
 	public void setCreatedTtime(Date createdTtime) {
 		this.createdTime = createdTtime;
 	}
-
 	public String getModifiedBy() {
 		return modifiedBy;
 	}
-
 	public void setModifiedBy(String modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
-
 	public Date getModified_time() {
 		return modifiedTime;
 	}
-
 	public void setModified_time(Date modified_time) {
 		this.modifiedTime = modified_time;
 	}
-
 	@Override
 	public String toString() {
 		return "DTMigration [migrationId=" + migrationId + ", evaluationOrder=" + evaluationOrder

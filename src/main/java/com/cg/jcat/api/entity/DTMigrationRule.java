@@ -19,53 +19,55 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "dt_migration_rule")
+@Table(name="dt_migration_rule")
 public class DTMigrationRule {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "migration_rule_id")
+	@Column(name="migration_rule_id")
 	private int migrationRuleId;
-
-	@Column(name = "execution_order")
+	
+	@Column(name="execution_order")
 	private int executionOrder;
-
+	
 	@Lob
-	@Column(name = "question_text_EN")
+	@Column(name="question_text_EN")
 	private String questionTextEN;
-
+	
 	@Lob
-	@Column(name = "rule_option_ids")
+	@Column(name="rule_option_ids")
 	private String ruleOptionIds;
-
+	
 	@Lob
-	@Column(name = "rule_option_text_EN")
+	@Column(name="rule_option_text_EN")
 	private String ruleOptionTextEN;
-
+	
 	@NotNull
-	@Column(name = "created_by")
+	@Column(name="created_by")
 	private String createdBy;
-
+	
 	@NotNull
-	@Column(name = "created_time")
+	@Column(name="created_time")
 	private Date createdTime;
-
-	@Column(name = "modified_by")
+	
+	@Column(name="modified_by")
 	private String modifiedBy;
-
-	@Column(name = "modified_time")
+	
+	@Column(name="modified_time")
 	private Date modifiedTime;
-
+	
 	@OneToOne(fetch = FetchType.EAGER)
+	//@JoinColumn(name="migrationId")
 	private DTMigration dtMigration;
-
+	
 	@OneToOne(fetch = FetchType.EAGER)
+	//@JoinColumn(name="questionId")
 	private AssessmentQuestion assessmentQuestion;
+
 
 	public int getMigrationRuleId() {
 		return migrationRuleId;
 	}
-
 	public void setMigrationRuleId(int migrationRuleId) {
 		this.migrationRuleId = migrationRuleId;
 	}
@@ -73,99 +75,76 @@ public class DTMigrationRule {
 	public int getExecutionOrder() {
 		return executionOrder;
 	}
-
 	public void setExecutionOrder(int executionOrder) {
 		this.executionOrder = executionOrder;
 	}
-
 	public String getQuestionTextEN() {
 		return questionTextEN;
 	}
-
 	public void setQuestionTextEN(String questionTextEN) {
 		this.questionTextEN = questionTextEN;
 	}
-
 	public Date getCreatedTime() {
 		return createdTime;
 	}
-
 	public void setCreatedTime(Date createdTime) {
 		this.createdTime = createdTime;
 	}
-
+	
 	public String getQuestiontextEN() {
 		return questionTextEN;
 	}
-
 	public void setQuestiontextEN(String questiontextEN) {
 		this.questionTextEN = questiontextEN;
 	}
-
 	public String getRuleOptionIds() {
 		return ruleOptionIds;
 	}
-
 	public void setRuleOptionIds(String ruleOptionIds) {
 		this.ruleOptionIds = ruleOptionIds;
 	}
-
 	public String getRuleOptionTextEN() {
 		return ruleOptionTextEN;
 	}
-
 	public void setRuleOptionTextEN(String ruleOptionTextEN) {
 		this.ruleOptionTextEN = ruleOptionTextEN;
 	}
-
 	public String getCreatedBy() {
 		return createdBy;
 	}
-
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
-
 	public Date getCreatedTtime() {
 		return createdTime;
 	}
-
 	public void setCreatedTtime(Date createdTtime) {
 		this.createdTime = createdTtime;
 	}
-
 	public String getModifiedBy() {
 		return modifiedBy;
 	}
-
 	public void setModifiedBy(String modifiedBy) {
 		this.modifiedBy = modifiedBy;
 	}
-
 	public Date getModifiedTime() {
 		return modifiedTime;
 	}
-
 	public void setModifiedTime(Date modifiedTime) {
 		this.modifiedTime = modifiedTime;
 	}
-
 	public DTMigration getDtMigration() {
 		return dtMigration;
 	}
-
 	public void setDtMigration(DTMigration dtMigration) {
 		this.dtMigration = dtMigration;
 	}
-
 	public AssessmentQuestion getAssessmentQuestion() {
 		return assessmentQuestion;
 	}
-
 	public void setAssessmentQuestion(AssessmentQuestion assessmentQuestion) {
 		this.assessmentQuestion = assessmentQuestion;
 	}
-
 	@Override
 	public String toString() {
 		return "DTMigrationRule [migrationRuleId=" + migrationRuleId + ", executionOrder=" + executionOrder
@@ -173,5 +152,6 @@ public class DTMigrationRule {
 				+ ruleOptionTextEN + ", createdBy=" + createdBy + ", createdTime=" + createdTime + ", modifiedBy="
 				+ modifiedBy + ", modifiedTime=" + modifiedTime + "]";
 	}
-
+	
+	
 }

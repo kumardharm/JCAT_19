@@ -6,8 +6,8 @@ import org.springframework.stereotype.Component;
 import com.cg.jcat.api.dao.BaseDao;
 
 @Component
-public class BaseService implements IBaseService {
-
+public class BaseService implements IBaseService{
+	
 	@Autowired
 	BaseDao dtoDao;
 

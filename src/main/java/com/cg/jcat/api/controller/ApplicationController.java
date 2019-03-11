@@ -19,10 +19,10 @@ import com.cg.jcat.api.service.IApplicationService;
 public class ApplicationController implements IApplicationController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ApplicationController.class);
-
+	
 	@Autowired
 	CsvDataLoader csvDataLoader;
-
+	
 	@Autowired
 	private IApplicationService applicationService;
 
@@ -43,9 +43,9 @@ public class ApplicationController implements IApplicationController {
 	}
 
 	@Override
-	public ApplicationModel getApplicationByApplicationId(String applicationId) throws ApplicationIdNotFoundException {
+	public ApplicationModel getApplicationByApplicationId(String aid) throws ApplicationIdNotFoundException {
 
-		return applicationService.getApplicationByApplicationId(applicationId);
+		return applicationService.getApplicationByApplicationId(aid);
 	}
 
 	@Override
@@ -61,17 +61,26 @@ public class ApplicationController implements IApplicationController {
 	}
 
 	@Override
-	public boolean updateApplication(ApplicationModel application)
-			throws ApplicationIdNotFoundException, SystemExceptions {
-
+	public boolean updateApplication(ApplicationModel application) throws ApplicationIdNotFoundException, SystemExceptions {
+	
 		return applicationService.updateApplication(application);
 	}
 
 	@Override
-	public void importApplication(MultipartFile file) throws SystemExceptions {
-
-		List<ApplicationStaging> applicationStaging = csvDataLoader.loadObjectList(ApplicationStaging.class, file);
-		applicationService.importApplication(applicationStaging);
-
+	public void importfile(MultipartFile file) {
+		
+		 List<ApplicationStaging> applicationStaging = csvDataLoader.loadObjectList(ApplicationStaging.class, file.getOriginalFilename(),file);
+//	     applicationService.importfile(applicationStaging);
+    	 System.out.println(applicationStaging);
+    	 System.out.println(file);
+		
 	}
+
+//	@Override
+//	public void importfile() {
+//		 List<ApplicationStaging> users = csvDataLoader.loadObjectList(ApplicationStaging.class, USERS_FILE);
+////		 applicationService.save(users.get(0));
+////		 applicationService.create(users);
+//		 System.out.println(users);
+//	}
 }

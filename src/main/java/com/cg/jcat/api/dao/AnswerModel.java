@@ -1,27 +1,34 @@
 package com.cg.jcat.api.dao;
 
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Lob;
+
+import org.hibernate.annotations.ColumnDefault;
+
 public class AnswerModel {
-
-	private int answerId;
-
+	
+private int answerId;
+	
 	private int applicationId;
-
+	
 	private int questionId;
-
+	
 	private String questionTextEN;
-
+	
 	private String optionIds;
-
+	
 	private String optionTextsEN;
-
+	
 	private boolean dtCloudableRuleResult;
-
+	
 	private boolean dtMigrationRuleResult;
-
+	
 	private boolean dtProviderRuleResult;
-
+	
 	private String modifiedBy;
-
+	
 	public int getAnswerId() {
 		return answerId;
 	}
@@ -102,6 +109,7 @@ public class AnswerModel {
 		this.modifiedBy = modifiedBy;
 	}
 
+
 	@Override
 	public String toString() {
 		return "AnswerModel [answerId=" + answerId + ", applicationId=" + applicationId + ", questionId=" + questionId
@@ -110,5 +118,5 @@ public class AnswerModel {
 				+ dtMigrationRuleResult + ", dtProviderRuleResult=" + dtProviderRuleResult + ", modifiedBy="
 				+ modifiedBy + "]";
 	}
-
+	
 }

@@ -9,92 +9,94 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.ColumnDefault;
 
+
 @Entity
-@Table(name = "applications_history")
+@Table(name="applications_history")
 public class ApplicationsHistory {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private int id;
-
+	
 	@NotNull
-	@Column(name = "aid")
+	@Column( name = "aid")
 	private int aid;
-
+	
 	@NotNull
 	@Column(name = "application_id")
 	private String applicationId;
-
+	
 	@Column(name = "application_name")
 	private String applicationName;
-
+	
 	@Lob
 	@Column(name = "application_description")
 	private String applicationDescription;
-
+	
 	@Column(name = "application_department")
 	private String applicationDepartment;
-
+	
 	@Column(name = "priority")
 	private int priority;
-
+	
 	@Column(name = "application_user")
 	private int applicationUser;
-
+	
 	@ColumnDefault("0")
 	@Column(name = "is_deleted")
 	private boolean isDeleted;
-
+	
 	@Column(name = "is_activate")
 	private boolean isActivate;
-
+	
 	@NotNull
 	@ColumnDefault("0")
 	@Column(name = "assessment_stage")
 	private int assessmentStage;
-
+	
 	@ColumnDefault("0")
 	@Column(name = "is_assessment_completed")
 	private boolean isAssessmentCompleted;
-
+	
 	@Column(name = "assessment_done_time")
 	private Date assessmentDoneTime;
-
+	
 	@ColumnDefault("0")
 	@Column(name = "is_dt_cloudable")
 	private boolean isDtCloudable;
-
+	
 	@ColumnDefault("0")
 	@Column(name = "is_re_cloudable")
 	private boolean isReCloudable;
-
+	
 	@Column(name = "dt_migration_pattern")
 	private String dtMigrationPattern;
-
+	
 	@Column(name = "re_migration_pattern")
 	private String reMigrationPattern;
-
+	
 	@Column(name = "dt_cloud_provider")
 	private String dtCloudProvider;
-
+	
 	@Column(name = "re_cloud_provider")
 	private String reCloudProvider;
-
+	
 	@NotNull
 	@Column(name = "created_by")
 	private String createdBy;
-
+	
 	@NotNull
 	@Column(name = "created_time")
 	private Date createdTime;
-
+	
 	@Column(name = "modified_by")
 	private String modifiedBy;
-
+	
 	@Column(name = "modified_time")
 	private Date modifiedTime;
 
@@ -295,5 +297,7 @@ public class ApplicationsHistory {
 				+ createdBy + ", createdTime=" + createdTime + ", modifiedBy=" + modifiedBy + ", modifiedTime="
 				+ modifiedTime + "]";
 	}
+
+	
 
 }

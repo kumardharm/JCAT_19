@@ -6,13 +6,18 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.cg.jcat.api.exception.SystemExceptions;
 import com.cg.jcat.api.repository.IAssessmentQuestionRepository;
 import com.cg.jcat.api.utility.QuestionTypeEnum;
@@ -34,6 +39,7 @@ public class TestDTCloudableRule {
 	public List<DTCloudableRuleModel> getCloudableRuleModel() {
 		List<DTCloudableRuleModel> dtCloudableRuleModelist = new ArrayList<DTCloudableRuleModel>();
 		DTCloudableRuleModel dtCloudableRuleModel = new DTCloudableRuleModel();
+		// dtCloudableRuleModel.setCloudableRuleId();
 		dtCloudableRuleModel.setOptionIds("1");
 		dtCloudableRuleModel.setOptionTextsEN("Yes");
 		dtCloudableRuleModel.setQuestionId(1);
@@ -90,8 +96,11 @@ public class TestDTCloudableRule {
 	}
 
 	List<QuestionOptionModel> getQuestionOptionModel() {
+		// assessmentQuestionModel.setQuestionOptionModel(null);
 		List<QuestionOptionModel> list = new ArrayList<>();
 		QuestionOptionModel questionOptionModel = new QuestionOptionModel();
+		// questionOptionModel.setOptionId(11);
+		// questionOptionModel.setAssessmentQuestionModel(assessmentQuestionModel);
 		questionOptionModel.setOptionTextEN("ENGLISH");
 		questionOptionModel.setOptionTextLang2("ä ö ü ß Ä Ö Ü");
 		list.add(questionOptionModel);

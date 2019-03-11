@@ -10,8 +10,8 @@ import com.cg.jcat.api.dao.QuestionOptionModel;
 import com.cg.jcat.api.exception.JcatExceptions;
 
 @Component
-public class QuestionOptionService implements IQuestionOptionService {
-
+public class QuestionOptionService implements IQuestionOptionService{
+	
 	@Autowired
 	QuestionOptionDao questionOptionDao;
 

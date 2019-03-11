@@ -12,48 +12,37 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
 import com.cg.jcat.api.entity.Application;
-import com.cg.jcat.api.entity.ApplicationStaging;
 import com.cg.jcat.api.exception.ApplicationIdNotFoundException;
 import com.cg.jcat.api.exception.SystemExceptions;
-import com.cg.jcat.api.repository.IApplicationStaging;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureTestDatabase
-@TestPropertySource(
-		 locations = "classpath:application-integrationtest.properties")
+@TestPropertySource(locations = "classpath:application-integrationtest.properties")
 public class TestApplicationDao {
 	@Autowired
 	private ApplicationDao applicationdao;
-	
-	@Autowired
-	IApplicationStaging iApplicationStaging;
 
 	@Test
-//	@Ignore
+	// @Ignore
 	public void tesBGetApplication() throws SystemExceptions {
-		
-//		ApplicationModel applicationModel = getApplicationModel();
-//		assertEquals(true,applicationdao.save(applicationModel));
-		assertEquals(3, applicationdao.getApplications().size());
-		
+
+		// ApplicationModel applicationModel = getApplicationModel();
+		// assertEquals(true,applicationdao.save(applicationModel));
+		assertEquals(1, applicationdao.getApplications().size());
+
 	}
-	
+
 	@Test
-//	@Ignore
-	public void testASave() throws SystemExceptions
-	{
+	// @Ignore
+	public void testASave() throws SystemExceptions {
 		ApplicationModel applicationModel = getApplicationModel();
-		assertEquals(true,applicationdao.save(applicationModel));
+		assertEquals(true, applicationdao.save(applicationModel));
 	}
 
 	private ApplicationModel getApplicationModel() {
-		ApplicationModel appLicationModel=new ApplicationModel();
+		ApplicationModel appLicationModel = new ApplicationModel();
 		appLicationModel.setApplicationId("App1");
 		appLicationModel.setApplicationName("Application1");
 		appLicationModel.setApplicationDescription("To check cloudable or not");
@@ -64,109 +53,59 @@ public class TestApplicationDao {
 		appLicationModel.setPriority(5);
 		appLicationModel.setReCloudProvider("AWS");
 		appLicationModel.setAssessmentStage(1);
-		
+
 		return appLicationModel;
 	}
-	
+
 	@Test
-//	@Ignore
-	public void testCGetApplicationById() throws SystemExceptions, ApplicationIdNotFoundException
-	{
+	// @Ignore
+	public void testCGetApplicationById() throws SystemExceptions, ApplicationIdNotFoundException {
 		ApplicationModel applicationModel = getApplicationModel();
+		// assertEquals(true,applicationdao.save(applicationModel));
 		ApplicationModel applicationModel2 = applicationdao.getApplicationByApplicationId("App1");
-		assertEquals(applicationModel.getApplicationName(),applicationModel2.getApplicationName());
-		assertEquals(applicationModel.getApplicationDepartment(),applicationModel2.getApplicationDepartment());
-		
+		assertEquals(applicationModel.getApplicationName(), applicationModel2.getApplicationName());
+		assertEquals(applicationModel.getApplicationDepartment(), applicationModel2.getApplicationDepartment());
+
 	}
-	
+
 	@Test
-//	@Ignore
-	public void testDDeleteApplicationById() throws SystemExceptions, ApplicationIdNotFoundException
-	{
+	// @Ignore
+	public void testDDeleteApplicationById() throws SystemExceptions, ApplicationIdNotFoundException {
 		ApplicationModel applicationModel = getApplicationModel();
-//		assertEquals(true,applicationdao.save(applicationModel));
-		assertEquals(true,applicationdao.deleteApplicationById(1));
+		// assertEquals(true,applicationdao.save(applicationModel));
+		assertEquals(true, applicationdao.deleteApplicationById(1));
 		Application application = applicationdao.findApplicationById(1);
-		assertEquals(true,application.isDeleted());
+		assertEquals(true, application.isDeleted());
 		assertTrue(application.isDeleted());
 	}
-	
+
 	@Test
-//	@Ignore
-	public void testEDeactivateApplicationById() throws SystemExceptions, ApplicationIdNotFoundException
-	{
+	// @Ignore
+	public void testEDeactivateApplicationById() throws SystemExceptions, ApplicationIdNotFoundException {
 		ApplicationModel applicationModel = getApplicationModel();
-//		assertEquals(true,applicationdao.save(applicationModel));
-		assertEquals(true,applicationdao.deactivateApplicationById(1));
+		// assertEquals(true,applicationdao.save(applicationModel));
+		assertEquals(true, applicationdao.deactivateApplicationById(1));
 		Application application = applicationdao.findApplicationById(1);
 		assertEquals(false, application.isActivate());
-		assertFalse( application.isActivate());
+		assertFalse(application.isActivate());
 	}
-	
+
 	@Test
-	public void testUpdateApplication() throws SystemExceptions, ApplicationIdNotFoundException
-	{
+	public void testUpdateApplication() throws SystemExceptions, ApplicationIdNotFoundException {
 		ApplicationModel applicationModel = getApplicationModel();
-		assertEquals(true,applicationdao.save(applicationModel));
+		assertEquals(true, applicationdao.save(applicationModel));
 		ApplicationModel applicationModel1 = applicationdao.getApplicationByApplicationId("App1");
 		System.out.println(applicationModel1);
 		applicationModel1.setApplicationId("App2");
 		applicationModel1.setApplicationName("App2");
 		applicationModel1.setApplicationDepartment("Application2 Description");
 		System.out.println(applicationModel1);
-		assertEquals(true,applicationdao.updateApplication(applicationModel1));
-		
-		ApplicationModel applicationModel2 = applicationdao.getApplicationByApplicationId("App2");
-		assertEquals("App2",applicationModel2.getApplicationName());
-		assertEquals("Application2 Description",applicationModel2.getApplicationDepartment());
-		
-	}
-	
-	@Test
-	public void testZimportApplication() throws SystemExceptions
-	{
-		List<ApplicationStaging> applicationStagingList = getApplicationStaging();
-		System.out.println(applicationStagingList);
-		applicationdao.importApplication(applicationStagingList);
-		assertEquals(3,iApplicationStaging.findAll().size());
-		Optional<ApplicationStaging> applicationStagingOpt = iApplicationStaging.findById(3);
-		ApplicationStaging applicationStaging = applicationStagingOpt.get();
-		assertEquals("error",applicationStaging.getStage());
-	}
+		assertEquals(true, applicationdao.updateApplication(applicationModel1));
 
-	private List<ApplicationStaging> getApplicationStaging() {
-		
-		List<ApplicationStaging> applicationStagingList = new ArrayList<>();
-		ApplicationStaging applicationStaging = new ApplicationStaging();
-		ApplicationStaging applicationStaging1 = new ApplicationStaging();
-		ApplicationStaging applicationStaging2 = new ApplicationStaging();
-		
-		applicationStaging.setApplicationId("App11");
-		applicationStaging.setApplicationName("App11");
-		applicationStaging.setApplicationDepartment("Dept");
-		applicationStaging.setApplicationDescription("Des");
-		applicationStaging.setPriority(4);
-		applicationStaging.setUserName("user1");
-		
-		applicationStaging1.setApplicationId("App21");
-		applicationStaging1.setApplicationName("App21");
-		applicationStaging1.setApplicationDepartment("Dept");
-		applicationStaging1.setApplicationDescription("Des");
-		applicationStaging1.setPriority(1);
-		applicationStaging1.setUserName("user2");
-		
-		
-		applicationStaging2.setApplicationId("App21");
-		applicationStaging2.setApplicationName("App21");
-		applicationStaging2.setApplicationDepartment("Dept");
-		applicationStaging2.setApplicationDescription("Des");
-		applicationStaging2.setPriority(1);
-		applicationStaging2.setUserName("user3");
-		applicationStagingList.add(applicationStaging);
-		applicationStagingList.add(applicationStaging1);
-		applicationStagingList.add(applicationStaging2);
-		
-		return applicationStagingList;
+		ApplicationModel applicationModel2 = applicationdao.getApplicationByApplicationId("App2");
+		assertEquals("App2", applicationModel2.getApplicationName());
+		assertEquals("Application2 Description", applicationModel2.getApplicationDepartment());
+
 	}
 
 }

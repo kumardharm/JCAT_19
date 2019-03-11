@@ -10,60 +10,66 @@ import com.cg.jcat.api.entity.QuestionOption;
 import com.cg.jcat.api.repository.IAssessmentQuestionRepository;
 import com.cg.jcat.api.service.IQuestionOptionService;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 @Component
 public class AssessmentQuestionDao {
-
+	
 	@Autowired
 	IAssessmentQuestionRepository assessmentQuestionRepository;
-
+	
 	@Autowired
 	IQuestionOptionService questionOptionService;
-
-	public List<AssessmentQuestionModel> getQuestions() {
+	
+	public List<AssessmentQuestionModel> getQuestions(){
 		System.out.println();
-		List<AssessmentQuestionModel> assessmentQuestionDAOList = new ArrayList<AssessmentQuestionModel>();
-		List<AssessmentQuestion> assessmentQuestionList = assessmentQuestionRepository.findAll();
-		return toGetQuestions(assessmentQuestionList, assessmentQuestionDAOList);
+		List<AssessmentQuestionModel> assessmentQuestionDAOList=new ArrayList<AssessmentQuestionModel>();
+		List<AssessmentQuestion> assessmentQuestionList=assessmentQuestionRepository.findAll();
+		return toGetQuestions(assessmentQuestionList,assessmentQuestionDAOList);
 	}
-
-	public List<AssessmentQuestionModel> toGetQuestions(List<AssessmentQuestion> assessmentQuestionList,
-			List<AssessmentQuestionModel> assessmentQuestionDAOList) {
-
-		for (AssessmentQuestion assessmentQuestion : assessmentQuestionList) {
+	
+	public List<AssessmentQuestionModel> toGetQuestions(List<AssessmentQuestion> assessmentQuestionList,List<AssessmentQuestionModel> assessmentQuestionDAOList){
+		
+		for(AssessmentQuestion assessmentQuestion:assessmentQuestionList)
+		{
 			assessmentQuestionDAOList.add(toAssessmentQuestionModel(assessmentQuestion));
 		}
 		return assessmentQuestionDAOList;
 	}
 
-	public boolean saveQuestions(AssessmentQuestionModel assessmentQuestionsModel) {
-		return assessmentQuestionRepository.save(toAssessmentQuestionService(assessmentQuestionsModel)) != null;
+	
+	public boolean saveQuestions(AssessmentQuestionModel assessmentQuestionsModel)
+	{
+		return assessmentQuestionRepository.save(toAssessmentQuestionService(assessmentQuestionsModel))!=null;
 	}
 
-	public boolean deleteAssessmentQuestionById(int questionId) {
+	public boolean deleteAssessmentQuestionById(int questionId)
+	{
 		AssessmentQuestion assessmentQuestion = new AssessmentQuestion();
-		assessmentQuestion = findByQuestionId(questionId);
+		assessmentQuestion=findByQuestionId(questionId);
 		assessmentQuestion.setDeleted(true);
-		if (assessmentQuestion.isDeleted()) {
+		if(assessmentQuestion.isDeleted())
+		{
 			assessmentQuestionRepository.saveAndFlush(assessmentQuestion);
 			return true;
-		} else {
+		}
+		else
+		{
 			return false;
 		}
 	}
-
+	
 	public boolean updateQuestions(AssessmentQuestionModel assessmentQuestionModel) {
 		System.out.println(assessmentQuestionModel);
 		boolean result = false;
-		result = assessmentQuestionRepository
-				.saveAndFlush(toAssessmentQuestionService(assessmentQuestionModel)) != null;
+		result = assessmentQuestionRepository.saveAndFlush(toAssessmentQuestionService(assessmentQuestionModel))!=null;
 		return result;
 	}
-
+	
 	private AssessmentQuestion toAssessmentQuestionService(AssessmentQuestionModel assessmentQuestionsModel) {
 		AssessmentQuestion assessmentQuestion = new AssessmentQuestion();
 		assessmentQuestion.setAssessmentTypeForCloudable(assessmentQuestionsModel.isAssessmentTypeForCloudable());
-		assessmentQuestion
-				.setAssessmentTypeForCloudProvider(assessmentQuestionsModel.isAssessmentTypeForCloudProvider());
+		assessmentQuestion.setAssessmentTypeForCloudProvider(assessmentQuestionsModel.isAssessmentTypeForCloudProvider());
 		assessmentQuestion.setAssessmentTypeForMigration(assessmentQuestionsModel.isAssessmentTypeForMigration());
 		assessmentQuestion.setCreatedBy(assessmentQuestionsModel.getCreatedBy());
 		assessmentQuestion.setDeleted(assessmentQuestionsModel.isDeleted());
@@ -80,27 +86,29 @@ public class AssessmentQuestionDao {
 		List<QuestionOption> questionOptionList = new ArrayList<>();
 
 		try {
-			for (QuestionOptionModel questionOptionModel : assessmentQuestionsModel.getQuestionOptionModel()) {
-				questionOptionList.add(toQuestionOption(questionOptionModel, assessmentQuestion));
-			}
-			assessmentQuestion.setQuestionOption(questionOptionList);
-		} catch (Exception e) {
+		for(QuestionOptionModel questionOptionModel : assessmentQuestionsModel.getQuestionOptionModel())
+		{
+			questionOptionList.add(toQuestionOption(questionOptionModel, assessmentQuestion));
+		}
+		assessmentQuestion.setQuestionOption(questionOptionList);
+		}
+		catch (Exception e) {
 		}
 		return assessmentQuestion;
 	}
-
-	public QuestionOption toQuestionOption(QuestionOptionModel questionOptionModel,
-			AssessmentQuestion assessmentQuestion) {
-		QuestionOption questionOption = new QuestionOption();
+	
+	public QuestionOption toQuestionOption(QuestionOptionModel questionOptionModel, AssessmentQuestion assessmentQuestion)
+	{
+		QuestionOption questionOption=new QuestionOption();
 		questionOption.setOptionId(questionOptionModel.getOptionId());
 		questionOption.setOptionTextEN(questionOptionModel.getOptionTextEN());
 		questionOption.setOptionTextLang2(questionOptionModel.getOptionTextLang2());
 		questionOption.setAssessmentQuestion(assessmentQuestion);
 		return questionOption;
 	}
-
-	public QuestionOptionModel toQuestionOptionModel(QuestionOption questionOption,
-			AssessmentQuestionModel assessmentQuestionModel) {
+	
+	public QuestionOptionModel toQuestionOptionModel(QuestionOption questionOption, AssessmentQuestionModel assessmentQuestionModel)
+	{
 		QuestionOptionModel questionOptionModel = new QuestionOptionModel();
 		questionOptionModel.setOptionId(questionOption.getOptionId());
 		questionOptionModel.setOptionTextEN(questionOption.getOptionTextEN());
@@ -108,12 +116,11 @@ public class AssessmentQuestionDao {
 		questionOptionModel.setAssessmentQuestionModel(assessmentQuestionModel);
 		return questionOptionModel;
 	}
-
+	
 	private AssessmentQuestionModel toAssessmentQuestionDao(AssessmentQuestion assessmentQuestion) {
 		AssessmentQuestionModel assessmentQuestionModel = new AssessmentQuestionModel();
 		assessmentQuestionModel.setAssessmentTypeForCloudable(assessmentQuestion.isAssessmentTypeForCloudable());
-		assessmentQuestionModel
-				.setAssessmentTypeForCloudProvider(assessmentQuestion.isAssessmentTypeForCloudProvider());
+		assessmentQuestionModel.setAssessmentTypeForCloudProvider(assessmentQuestion.isAssessmentTypeForCloudProvider());
 		assessmentQuestionModel.setAssessmentTypeForMigration(assessmentQuestion.isAssessmentTypeForMigration());
 		assessmentQuestionModel.setCreatedBy(assessmentQuestion.getCreatedBy());
 		assessmentQuestionModel.setDeleted(assessmentQuestion.isDeleted());
@@ -127,18 +134,18 @@ public class AssessmentQuestionDao {
 		assessmentQuestionModel.setQuestionType(assessmentQuestion.getQuestionType());
 		assessmentQuestionModel.setNumberOfOptions(assessmentQuestion.getNumberOfOptions());
 		List<QuestionOptionModel> questionOptionModelList = new ArrayList<>();
-		for (QuestionOption questionOption : assessmentQuestion.getQuestionOption()) {
+		for(QuestionOption questionOption : assessmentQuestion.getQuestionOption())
+		{
 			questionOptionModelList.add(toQuestionOptionModel(questionOption, assessmentQuestionModel));
 		}
 		assessmentQuestionModel.setQuestionOptionModel(questionOptionModelList);
 		return assessmentQuestionModel;
 	}
-
+	
 	private AssessmentQuestionModel toAssessmentQuestionModel(AssessmentQuestion assessmentQuestion) {
 		AssessmentQuestionModel assessmentQuestionModel = new AssessmentQuestionModel();
 		assessmentQuestionModel.setAssessmentTypeForCloudable(assessmentQuestion.isAssessmentTypeForCloudable());
-		assessmentQuestionModel
-				.setAssessmentTypeForCloudProvider(assessmentQuestion.isAssessmentTypeForCloudProvider());
+		assessmentQuestionModel.setAssessmentTypeForCloudProvider(assessmentQuestion.isAssessmentTypeForCloudProvider());
 		assessmentQuestionModel.setAssessmentTypeForMigration(assessmentQuestion.isAssessmentTypeForMigration());
 		assessmentQuestionModel.setCreatedBy(assessmentQuestion.getCreatedBy());
 		assessmentQuestionModel.setDeleted(assessmentQuestion.isDeleted());
@@ -153,17 +160,19 @@ public class AssessmentQuestionDao {
 		assessmentQuestionModel.setNumberOfOptions(assessmentQuestion.getNumberOfOptions());
 		return assessmentQuestionModel;
 	}
-
-	public AssessmentQuestionModel getQuestionById(int questionId) {
+	
+	public AssessmentQuestionModel getQuestionById(int questionId)
+	{
 		return toAssessmentQuestionModel(findByQuestionId(questionId));
 	}
-
-	public AssessmentQuestion findByQuestionId(int questionId) {
+	
+	public AssessmentQuestion findByQuestionId(int questionId)
+	{
 		return assessmentQuestionRepository.findByQuestionId(questionId);
 	}
-
+	
 	public AssessmentQuestion findByQuestionTextEn(String questionTextEN) {
 		return assessmentQuestionRepository.findByQuestionTextEN(questionTextEN);
 	}
-
+	
 }

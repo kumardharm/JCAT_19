@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,26 +19,23 @@ import com.cg.jcat.api.exception.SystemExceptions;
 import com.cg.jcat.api.exception.UserAlreadyExistsException;
 import org.springframework.validation.Errors;
 
-//@CrossOrigin(origins = "http://localhost:4200")
+
 @RestController
-@RequestMapping("/")
+@RequestMapping("/user")
 public interface IUserController {
-
-	@GetMapping("user/getAll")
+	
+	
+	@GetMapping("/getAll") 
 	public List<UserModel> getUsers() throws SystemExceptions;
-
-	@PostMapping("user/create/{createdBy}")
-	public boolean saveUser(@PathVariable String createdBy, @Valid @RequestBody UserModel users, Errors error)
-			throws ValidationException, SystemExceptions, UserAlreadyExistsException;
-
-	@PutMapping("user/update/{modifiedBy}")
-	public boolean updateUserId(@PathVariable String modifiedBy, @RequestBody UserModel user)
-			throws SystemExceptions, UserAlreadyExistsException;
-
-	@DeleteMapping("user/delete/{userId}")
+	
+	@PostMapping("/create/{createdBy}")
+	public boolean saveUser(@PathVariable String createdBy,@Valid @RequestBody UserModel users,Errors error) throws ValidationException,SystemExceptions,UserAlreadyExistsException;
+	
+	@PutMapping("/update/{modifiedBy}")
+	public boolean updateUserId(@PathVariable String modifiedBy, @RequestBody UserModel user) throws SystemExceptions, UserAlreadyExistsException ;
+	
+	@DeleteMapping("/delete/{userId}")
 	public void deleteById(@PathVariable int userId) throws JcatExceptions;
 
-	@GetMapping("login/{username}/{password}")
-	public UserModel login(@PathVariable String username, @PathVariable String password);
-
+	
 }
